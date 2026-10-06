@@ -1,0 +1,7 @@
+{
+  "name": "dinedeal-v2",
+  "version": "2.2.0",
+  "private": true,
+  "description": "DineDeal - Google Places API via Vercel serverless functions",
+  "engines": { "node": ">=18" }
+}
