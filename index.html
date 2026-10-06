@@ -106,11 +106,15 @@ async function render(forceApi=false){
  document.getElementById('toprating').textContent=(arr.length?Math.max(...arr.map(x=>x.rating)).toFixed(1):"0")+"★";
  document.getElementById('resultText').textContent=arr.length+" results";
  document.getElementById('grid').innerHTML=arr.map(p=>card(p)).join("");
+ document.querySelectorAll('[data-details]').forEach(button=>button.addEventListener('click',()=>{
+   try { const d=JSON.parse(button.dataset.details); showDetails(d.name,d.rating,d.distance,d.address); } catch(e) {}
+ }));
+ document.querySelectorAll('[data-fav]').forEach(button=>button.addEventListener('click',()=>toggleFav(button.dataset.fav)));
  document.getElementById('empty').style.display=arr.length?"none":"block";
  document.getElementById('pins').innerHTML=arr.slice(0,8).map((p,i)=>`<div class="pin" style="left:${12+(i*11)%78}%;top:${30+(i*17)%52}%"><span>₹</span></div>`).join("");
 }
 function card(p){
- const fav=favs.has(p.id);
+ const fav=favs.has(String(p.id || p.googlePlaceId || p.name || "restaurant"));
  return `<article class="card">
    <div class="photo" style="background-image:url('${p.img}')"></div><div class="badge">🔥 ${p.discount}% OFF</div>
    <div class="body"><div class="deal">${p.tag}</div><div class="name">${p.name}<span class="price">₹${p.price}/2</span></div>

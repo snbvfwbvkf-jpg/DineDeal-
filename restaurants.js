@@ -72,7 +72,7 @@ module.exports = async (req, res) => {
       ? await placesRequest('https://places.googleapis.com/v1/places:searchText', {
           textQuery: q,
           locationBias: { circle: { center: { latitude: lat, longitude: lng }, radius } },
-          includedType: 'restaurant', maxResultCount: 20
+          maxResultCount: 20
         })
       : await placesRequest('https://places.googleapis.com/v1/places:searchNearby', {
           includedTypes: ['restaurant', 'cafe'], maxResultCount: 20,
